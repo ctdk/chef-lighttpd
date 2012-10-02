@@ -1,0 +1,204 @@
+# Debian lighttpd configuration file
+# 
+
+############ Options you really have to take care of ####################
+
+## modules to load
+# mod_access, mod_accesslog and mod_alias are loaded by default
+# all other module should only be loaded if neccesary
+# - saves some time
+# - saves memory
+
+server.modules              = ( 
+            "mod_access",
+            "mod_alias",
+            "mod_accesslog",
+	    "mod_extforward",
+	    "mod_proxy",
+	    #"mod_deflate",
+	    #"mod_chunked",
+#	"mod_magnet",
+           "mod_rewrite", 
+           "mod_redirect", 
+	   #"mod_staticfile",
+           "mod_status", 
+#           "mod_evhost",
+           "mod_compress",
+#           "mod_usertrack",
+#           "mod_rrdtool",
+#           "mod_webdav",
+           "mod_expire",
+#           "mod_flv_streaming",
+#           "mod_evasive"
+ )
+
+## a static document-root, for virtual-hosting take look at the 
+## server.virtual-* options
+server.document-root       = "<%= node[:lighttpd][:doc_root] %>"
+
+## where to send error-messages to
+server.errorlog            = "<%= node[:lighttpd][:log_dir] %>/error.log"
+#server.core-files = "enable"
+server.max-worker = <%= node[:lighttpd][:max_worker] %>
+#debug.log-request-handling = "enable"
+#debug.log-state-handling = "enable"
+#debug.log-condition-handling = "enable"
+#debug.log-response-header = "enable"
+#proxy-core.debug = 1
+
+## files to check for if .../ is requested
+index-file.names           = ( "index.php", "index.html", 
+                               "index.htm", "default.htm" )
+
+
+## Use the "Content-Type" extended attribute to obtain mime type if possible
+# mimetype.use-xattr = "enable"
+
+#### accesslog module
+accesslog.filename         = "<%= node[:lighttpd][:log_dir] %>/access.log"
+
+## deny access the file-extensions
+#
+# ~    is for backupfiles from vi, emacs, joe, ...
+# .inc is often used for code includes which should in general not be part
+#      of the document-root
+url.access-deny            = ( "~", ".inc" )
+
+
+
+######### Options that are good to be but not neccesary to be changed #######
+
+## bind to port (default: 80)
+<% if node[:lighttpd][:port] -%>
+server.port               = <%= node[:lighttpd][:port] %>
+<% end -%>
+
+## bind to localhost only (default: all interfaces)
+## server.bind                = "localhost"
+
+## error-handler for status 404
+#server.error-handler-404  = "/error-handler.html"
+#server.error-handler-404  = "/error-handler.php"
+
+## to help the rc.scripts
+server.pid-file            = "<%= node[:lighttpd][:pid_file] %>"
+
+## 
+## Format: <errorfile-prefix><status>.html
+## -> ..../status-404.html for 'File not found'
+#server.errorfile-prefix    = "/var/www"
+
+## virtual directory listings
+dir-listing.encoding        = "<%= node[:lighttpd][:encoding] %>"
+server.dir-listing          = "<%= node[:lighttpd][:dir_listing] %>"
+
+## send unhandled HTTP-header headers to error-log
+#debug.dump-unknown-headers  = "enable"
+
+### only root can use these options
+#
+# chroot() to directory (default: no chroot() )
+#server.chroot            = "/"
+
+## change uid to <uid> (default: don't care)
+server.username            = "<%= node[:lighttpd][:user] %>"
+
+## change uid to <uid> (default: don't care)
+server.groupname           = "<%= node[:lighttpd][:group] %>"
+server.max-fds = <%= node[:lighttpd][:max_fds] %>
+server.max-connections = <%= node[:lighttpd][:max_connections] %>
+
+server.use-ipv6 = "<%= node[:lighttpd][:use_ipv6] %>"
+
+# disable range requests to stop a DDoS vector. Needs revisting, possibly
+server.range-requests = "disable" 
+
+<% if node[:lighttpd][:extforward_headers] -%>
+extforward.headers = (
+	<%= node[:lighttpd][:extforward_headers].map { |h| "\"#{h}\"" }.join ', ' %>
+	)
+extforward.forwarder = (
+	<%= node[:lighttpd][:extforward_forwarders].map { |f| "\"#{f}\" => \"trust\"" }.join ', ' %>
+	)
+<% end -%>
+
+#### compress module
+<% if node[:lighttpd][:compress][:cache_dir] -%>
+compress.cache-dir          = "<%= node[:lighttpd][:compress][:cache_dir] %>"
+compress.filetype           =  ( <%= node[:lighttpd][:compress][:mime_types].map { |mt| "\"#{mt}\"" }.join ', ' %> )
+$HTTP["useragent"] =~ "WebTV" { compress.filetype           = () }
+$HTTP["useragent"] !~ "MSIE 6|MSIE 5" {
+        compress.filetype += ( <%= node[:lighttpd][:compress][:mime_types_non_ie6].map { |mt| "\"#{mt}\"" }.join ', ' %> )
+        }
+<% end -%>
+
+#etag.user-inode = "disable"
+#static-file.etags = "disable"
+
+#### status module
+status.status-url = "/server-status"
+# status.config-url = "/server-config"
+
+#### url handling modules (rewrite, redirect, access)
+# url.rewrite                 = ( "^/$"             => "/server-status" )
+# url.redirect                = ( "^/wishlist/(.+)" => "http://www.123.org/$1" )
+
+#
+# define a pattern for the host url finding
+# %% => % sign
+# %0 => domain name + tld
+# %1 => tld
+# %2 => domain name without tld
+# %3 => subdomain 1 name
+# %4 => subdomain 2 name
+#
+# evhost.path-pattern = "/home/storage/dev/www/%3/htdocs/"
+
+#### expire module
+# expire.url                  = ( "/buggy/" => "access 2 hours", "/asdhas/" => "access plus 1 seconds 2 minutes")
+
+#### rrdtool
+# rrdtool.binary = "/usr/bin/rrdtool"
+# rrdtool.db-name = "/var/www/lighttpd.rrd"
+
+
+#### handle Debian Policy Manual, Section 11.5. urls
+#### and by default allow them only from localhost
+
+$HTTP["remoteip"] =~ "127.0.0.1" {
+	alias.url += ( 
+		"/doc/" => "/usr/share/doc/",
+		"/images/" => "/usr/share/images/"
+	)
+	$HTTP["url"] =~ "^/doc/|^/images/" {
+		dir-listing.activate = "enable"
+	}
+}
+
+#### variable usage:
+## variable name without "." is auto prefixed by "var." and becomes "var.bar"
+#bar = 1
+#var.mystring = "foo"
+
+## integer add
+#bar += 1
+## string concat, with integer cast as string, result: "www.foo1.com"
+#server.name = "www." + mystring + var.bar + ".com"
+## array merge
+#index-file.names = (foo + ".php") + index-file.names
+#index-file.names += (foo + ".php")
+
+#chunked.encoding = "<%= node[:lighttpd][:chunked] %>"
+
+
+#### external configuration files
+## mimetype mapping
+include_shell "/usr/share/lighttpd/create-mime.assign.pl"
+
+## load enabled configuration files, 
+## read /etc/lighttpd/conf-available/README first
+include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
+# Now we can use include-sites-enabled
+# Borrow how to do so from apache2
+include_shell "/usr/share/lighttpd/include-sites-enabled.pl"
+# just a dummy thing

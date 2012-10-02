@@ -1,0 +1,4 @@
+$HTTP["host"] == "<%= @params[:server_name] %>" {
+        server.document-root = "<%= @params[:doc_root] %>"
+        dir-listing.activate = "enable"
+        }
