@@ -3,7 +3,7 @@ maintainer_email "jeremy@dailykos.com"
 license          "Apache 2.0"
 description      "Installs/Configures chef-lighttpd"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.0.1"
+version          "0.0.5"
 
 attribute "lighttpd",
   :display_name => "Lighttpd perl Hash",
