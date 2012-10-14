@@ -1,5 +1,5 @@
 # 
-# Cookbook Name: lighttpd
+# Cookbook Name: chef-lighttpd
 # Definition: lighttpd_vhost
 # Copyright 2011, Kos Media LLC
 #
