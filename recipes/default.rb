@@ -44,6 +44,21 @@ cookbook_file "/usr/share/lighttpd/include-sites-enabled.pl" do
   group "root"
 end
 
+# make sites-available and sites-enabled
+directory "/etc/lighttpd/sites-available" do
+  action :create
+  mode 0755
+  owner "root"
+  group "root"
+end
+
+directory "/etc/lighttpd/sites-enabled" do
+  action :create
+  mode 0755
+  owner "root"
+  group "root"
+end
+
 template "/etc/lighttpd/lighttpd.conf" do
         source "lighttpd.conf.erb"
         owner "root"
