@@ -9,7 +9,7 @@
 
 define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 	vhost_name = params[:server_name]
-	include_recipe "lighttpd"
+	include_recipe "chef-lighttpd"
 
 	template "#{node[:lighttpd][:dir]}/sites-available/#{vhost_name}.conf" do
 		source params[:template]

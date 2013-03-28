@@ -7,7 +7,7 @@
 # Figure out licensing later. Adapted from apache2's apache_site
 
 define :lighttpd_site, :enable => true do
-	include_recipe "lighttpd"
+	include_recipe "chef-lighttpd"
 
 	if params[:enable]
 		link "#{node[:lighttpd][:dir]}/sites-enabled/#{params[:server_name]}.conf" do
