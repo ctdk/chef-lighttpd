@@ -1,5 +1,21 @@
-# attributes for lighttpd
-# TODO: license junk etc.
+#
+# Cookbook Name:: chef-lighttpd
+# Attributes:: default
+#
+# Copyright 2011-2013, Kos Media, LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 default[:lighttpd][:dir]     = "/etc/lighttpd"
 default[:lighttpd][:log_dir] = "/var/log/lighttpd"
@@ -16,17 +32,6 @@ default[:lighttpd][:max_connections] = 1024
 default[:lighttpd][:use_ipv6] = "enable"
 default[:lighttpd][:extforward_headers] = [ "X-Cluster-Client-Ip", "X-Forwarded-For"]
 default[:lighttpd][:extforward_forwarders] = [ "127.0.0.1" ]
-default[:lighttpd][:deflate][:enable] = "disable"
-default[:lighttpd][:deflate][:compression_level] = 9
-default[:lighttpd][:deflate][:mem_level] = 9
-default[:lighttpd][:deflate][:window_size] = 15
-default[:lighttpd][:deflate][:min_compress_size] = 2
-default[:lighttpd][:deflate][:sync_flush] = "enable"
-default[:lighttpd][:deflate][:output_buffer_size] = 8192
-default[:lighttpd][:deflate][:work_block_size] = 512
-default[:lighttpd][:deflate][:debug] = "disable"
-default[:lighttpd][:deflate][:mime_types] = [ "text/html", "text/plain", "text/xml" ]
-default[:lighttpd][:deflate][:mime_types_non_ie6] = [ "text/css", "text/javascript", "application/javascript" ]
 default[:lighttpd][:compress][:cache_dir] = "/var/tmp/lighttpd/cache/compress"
 default[:lighttpd][:compress][:mime_types] = [ "text/html", "text/plain", "text/xml" ]
 default[:lighttpd][:compress][:mime_types_non_ie6] = [ "text/css", "text/javascript", "application/javascript" ]
