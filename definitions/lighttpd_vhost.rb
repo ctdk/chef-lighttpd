@@ -38,8 +38,8 @@ define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 		end
 	end
 
-	lighttpd_site "#{params[:server_name]}.conf" do
-		server_name params[:server_name]
+	lighttpd_site "#{vhost_name}.conf" do
+		server_name vhost_name
 		enable params[:enable]
 	end
 
