@@ -19,6 +19,7 @@
 
 define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 	vhost_name = params[:server_name]
+	enabled = params[:enable]
 	include_recipe "chef-lighttpd"
 
 	template "#{node[:lighttpd][:dir]}/sites-available/#{vhost_name}.conf" do
@@ -40,7 +41,7 @@ define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 
 	lighttpd_site "#{vhost_name}.conf" do
 		server_name vhost_name
-		enable params[:enable]
+		enable enabled
 	end
 
 end
