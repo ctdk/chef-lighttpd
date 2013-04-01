@@ -19,11 +19,12 @@
 
 define :lighttpd_module, :enable => true do
   module_command = (params[:enable]) ? "lighttpd-enable-mod" : "lighttpd-disable-mod"
+  include_recipe "chef-lighttpd"
   bash "run_lighty_mod" do
     user "root"
     code <<-EOH
       #{module_command} #{params[:name]}
     EOH
+    notifies :restart, resources(:service => "lighttpd"), :delayed
   end
-  notified :restart, resources(:service => "lighttpd"), :delayed
 end

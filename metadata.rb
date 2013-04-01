@@ -79,7 +79,7 @@ attribute "lighttpd/compress",
 attribute "lighttpd/compress/use_compress",
   :display_name => "Use the mod_compress cache dir",
   :description => "use mod_compress cache dir",
-  :default => true
+  :default => "true"
 
 attribute "lighttpd/compress/mime_types",
   :display_name => "compress mime types",
@@ -99,7 +99,7 @@ attribute "lighttpd/compress/cache_dir",
   :default => "/var/tmp/lighttpd/cache/compress"
 
 # Debug hash
-attribute "lighttpd/debug"
+attribute "lighttpd/debug",
   :display_name => "Lighttpd Debug options",
   :description => "Hash of debug options for lighttpd",
   :type => "hash"

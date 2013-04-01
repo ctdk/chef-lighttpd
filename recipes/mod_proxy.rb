@@ -19,10 +19,10 @@
 
 lighttpd_module "proxy"
 
-template "/etc/conf-available/10-proxy.conf" do
+template "/etc/lighttpd/conf-available/10-proxy.conf" do
   source "proxy.conf.erb"
   owner "root"
   group "root"
   mode "0644"
-  notified :restart, resources(:service => "lighttpd"), :delayed
+  notifies :restart, resources(:service => "lighttpd"), :delayed
 end

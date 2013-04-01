@@ -26,7 +26,7 @@ server.document-root       = "<%= node[:lighttpd][:doc_root] %>"
 
 ## where to send error-messages to
 server.errorlog            = "<%= node[:lighttpd][:log_dir] %>/error.log"
-server.core-files = "<%= node[:lighttpd][:core_files] %>"
+server.core-files = "<%= node[:lighttpd][:debug][:core_files] %>"
 server.max-worker = <%= node[:lighttpd][:max_worker] %>
 debug.log-request-handling = "<%= node[:lighttpd][:debug][:log_request_handling] %>"
 debug.log-state-handling = "<%= node[:lighttpd][:debug][:log_state_handling] %>"
