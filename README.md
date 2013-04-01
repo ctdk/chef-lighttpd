@@ -8,13 +8,15 @@ Currently only tested and supported on Debian and Ubuntu.
 
 Attributes
 ==========
-See `attributes/default.rb` and [the lighttpd docs](http://redmine.lighttpd.net/projects/lighttpd/wiki) for the default values and their explanation.
+See `attributes/default.rb` and [the lighttpd docs](http://redmine.lighttpd.net/projects/lighttpd/wiki) for the default values and their explanation. The defaults are pretty sane, but they can be tweaked as needed.
 
-Some important attributes:
+Of particular interest are the `max_worker`, `max_fds`, and `max_connections` attributes for performance tuning. Read more at [`http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ConfigurationOptions`](http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ConfigurationOptions) for very detailed explanations of all of the options available.
 
 Usage
 =====
 Include `recipe[chef-lighttpd]` in your runlist to install lighttpd. To configure and enable virtual hosts, use the `lighttpd_vhost` and `lighttpd_site` definitions by including the recipe in your cookbook. The `lighttpd_vhost` definition will create and configure a virtual host configuration, and `lighttpd_site` will enable it. `lighttpd_vhost` uses a very sparse configuration by default, so you will want to extend it if you want more than an extremely simple virtual host. Just pass in whatever settings you want in the vhost config as params when you call the lighttpd_vhost definition. lighttpd_vhost was adapted from apache2's web_app definition, while lighttpd_site was adapted from apache_site. They work very similarly to those.
+
+Usually, you will not need to call `lighttpd_site` directly - just pass in `enable` as a param when you call `lighttpd_vhost`, and that will call lighttpd_site for you. However, it's available if you need to call it directly.
 
 LICENSE
 =======

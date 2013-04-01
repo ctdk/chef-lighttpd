@@ -9,27 +9,16 @@
 # - saves some time
 # - saves memory
 
-server.modules              = ( 
-            "mod_access",
-            "mod_alias",
-            "mod_accesslog",
-	    "mod_extforward",
-	    "mod_proxy",
-	    #"mod_chunked",
-#	"mod_magnet",
-           "mod_rewrite", 
-           "mod_redirect", 
-	   #"mod_staticfile",
-           "mod_status", 
-#           "mod_evhost",
-           "mod_compress",
-#           "mod_usertrack",
-#           "mod_rrdtool",
-#           "mod_webdav",
-           "mod_expire",
-#           "mod_flv_streaming",
-#           "mod_evasive"
- )
+server.modules		   = ( 
+			      "mod_access",
+			      "mod_alias",
+			      "mod_accesslog",
+			      "mod_rewrite", 
+			      "mod_redirect", 
+			      "mod_status", 
+			      "mod_compress",
+			      "mod_expire"
+			      )
 
 ## a static document-root, for virtual-hosting take look at the 
 ## server.virtual-* options
@@ -37,13 +26,13 @@ server.document-root       = "<%= node[:lighttpd][:doc_root] %>"
 
 ## where to send error-messages to
 server.errorlog            = "<%= node[:lighttpd][:log_dir] %>/error.log"
-#server.core-files = "enable"
+server.core-files = "<%= node[:lighttpd][:core_files] %>"
 server.max-worker = <%= node[:lighttpd][:max_worker] %>
-#debug.log-request-handling = "enable"
-#debug.log-state-handling = "enable"
-#debug.log-condition-handling = "enable"
-#debug.log-response-header = "enable"
-#proxy-core.debug = 1
+debug.log-request-handling = "<%= node[:lighttpd][:debug][:log_request_handling] %>"
+debug.log-state-handling = "<%= node[:lighttpd][:debug][:log_state_handling] %>"
+debug.log-condition-handling = "<%= node[:lighttpd][:debug][:log_condition_handling] %>" 
+debug.log-response-header = "<%= node[:lighttpd][:debug][:log_response_header] %>"
+proxy-core.debug = "<%= node[:lighttpd][:debug][:proxy] %>"
 
 ## files to check for if .../ is requested
 index-file.names           = ( "index.php", "index.html", 
@@ -92,7 +81,7 @@ dir-listing.encoding        = "<%= node[:lighttpd][:encoding] %>"
 server.dir-listing          = "<%= node[:lighttpd][:dir_listing] %>"
 
 ## send unhandled HTTP-header headers to error-log
-#debug.dump-unknown-headers  = "enable"
+debug.dump-unknown-headers  = "<%= node[:lighttpd][:debug][:dump_unknown_headers] %>"
 
 ### only root can use these options
 #
@@ -109,9 +98,6 @@ server.max-connections = <%= node[:lighttpd][:max_connections] %>
 
 server.use-ipv6 = "<%= node[:lighttpd][:use_ipv6] %>"
 
-# disable range requests to stop a DDoS vector. Needs revisting, possibly
-server.range-requests = "disable" 
-
 <% if node[:lighttpd][:extforward_headers] -%>
 extforward.headers = (
 	<%= node[:lighttpd][:extforward_headers].map { |h| "\"#{h}\"" }.join ', ' %>
@@ -122,7 +108,7 @@ extforward.forwarder = (
 <% end -%>
 
 #### compress module
-<% if node[:lighttpd][:compress][:cache_dir] -%>
+<% if node[:lighttpd][:compress][:use_compress] -%>
 compress.cache-dir          = "<%= node[:lighttpd][:compress][:cache_dir] %>"
 compress.filetype           =  ( <%= node[:lighttpd][:compress][:mime_types].map { |mt| "\"#{mt}\"" }.join ', ' %> )
 $HTTP["useragent"] =~ "WebTV" { compress.filetype           = () }
@@ -187,9 +173,6 @@ $HTTP["remoteip"] =~ "127.0.0.1" {
 #index-file.names = (foo + ".php") + index-file.names
 #index-file.names += (foo + ".php")
 
-#chunked.encoding = "<%= node[:lighttpd][:chunked] %>"
-
-
 #### external configuration files
 ## mimetype mapping
 include_shell "/usr/share/lighttpd/create-mime.assign.pl"
@@ -198,6 +181,4 @@ include_shell "/usr/share/lighttpd/create-mime.assign.pl"
 ## read /etc/lighttpd/conf-available/README first
 include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
 # Now we can use include-sites-enabled
-# Borrow how to do so from apache2
 include_shell "/usr/share/lighttpd/include-sites-enabled.pl"
-# just a dummy thing

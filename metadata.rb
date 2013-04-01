@@ -70,23 +70,16 @@ attribute "lighttpd/use_ipv6",
   :description => "use ipv6",
   :default => "enable"
 
-attribute "lighttpd/extforward_headers",
-  :display_name => "extforward headers",
-  :description => "extforward headers",
-  :type => "array",
-  :default => [ "X-Cluster-Client-Ip", "X-Forwarded-For"]
-
-attribute "lighttpd/extforward_forwarders",
-  :display_name => "extforward forwarders",
-  :description => "extforward forwarders",
-  :type => "array", 
-  :default => [ "127.0.0.1" ]
-
 # compress hash, get it out of the way
 attribute "lighttpd/compress",
   :display_name => "lighttpd compress",
   :description => "Hash of lighttpd compress options",
   :type => "hash"
+
+attribute "lighttpd/compress/use_compress",
+  :display_name => "Use the mod_compress cache dir",
+  :description => "use mod_compress cache dir",
+  :default => true
 
 attribute "lighttpd/compress/mime_types",
   :display_name => "compress mime types",
@@ -104,3 +97,44 @@ attribute "lighttpd/compress/cache_dir",
   :display_name => "compress cache dir",
   :description => "compress cache dir",
   :default => "/var/tmp/lighttpd/cache/compress"
+
+# Debug hash
+attribute "lighttpd/debug"
+  :display_name => "Lighttpd Debug options",
+  :description => "Hash of debug options for lighttpd",
+  :type => "hash"
+
+attribute "lighttpd/debug/proxy",
+  :display_name => "debug proxy",
+  :description => "debug the proxy engine",
+  :default => "disable"
+
+attribute "lighttpd/debug/core_files",
+  :display_name => "debug proxy",
+  :description => "debug the proxy engine",
+  :default => "disable"
+
+attribute "lighttpd/debug/dump_unknown_headers",
+  :display_name => "debug unknown headers",
+  :description => "Dump unknown headers to disk",
+  :default => "disable"
+
+attribute "lighttpd/debug/log_request_handling",
+  :display_name => "debug log request handling",
+  :description => "Log request handling",
+  :default => "disable"
+
+attribute "lighttpd/debug/log_state_handling",
+  :display_name => "debug log state handling",
+  :description => "Log state handling",
+  :default => "disable"
+
+attribute "lighttpd/debug/log_condition_handling",
+  :display_name => "debug log condition handling",
+  :description => "Log condition handling",
+  :default => "disable"
+
+attribute "lighttpd/debug/log_response_header",
+  :display_name => "debug log response header",
+  :description => "Log response headers",
+  :default => "disable"
