@@ -17,4 +17,8 @@
 # limitations under the License.
 #
 
+package "lighttpd-mod-magnet" do
+  action :install
+end
+
 lighttpd_module "magnet"

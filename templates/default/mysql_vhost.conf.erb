@@ -1,0 +1,14 @@
+# mod_mysql_vhost config
+# See http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModMySQLVhost
+# for an explanation of configuration options.
+
+server.modules += ( "mod_mysql_vhost")
+
+mysql-vhost.db             = "<%= node[:lighttpd][:mysql][:db] %>"
+mysql-vhost.user           = "<%= node[:lighttpd][:mysql][:user] %>"
+mysql-vhost.pass           = "<%= node[:lighttpd][:mysql][:pass] %>"
+mysql-vhost.sock           = "<%= node[:lighttpd][:mysql][:sock] %>"
+# - OR -
+#mysql-vhost.hostname      = "<%= node[:lighttpd][:mysql][:hostname] %>"
+mysql-vhost.sql            = "<%= node[:lighttpd][:mysql][:sql] %>"
+mysql-vhost.port           = <%= node[:lighttpd][:mysql][:port] %>

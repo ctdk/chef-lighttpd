@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef-lighttpd
-# Recipe:: mod_trigger_b4_dl
+# Recipe:: mod_mysql_vhost
 #
 # Copyright 2011-2013, Kos Media, LLC
 #
@@ -17,8 +17,21 @@
 # limitations under the License.
 #
 
-package "lighttpd-mod-trigger-b4-dl" do
+package "lighttpd-mod-mysql-vhost" do
   action :install
 end
 
-lighttpd_module "trigger-b4-dl"
+# If you use the mysql vhost module, you will probably want to modify this
+# recipe to use whatever databags you want to use for storing the database
+# username, password, etc. The template is provided as a reference, however, if
+# you want to just use attributes.
+
+template "/etc/lighttpd/conf-available/10-mysql-vhost.conf" do
+  source "mysql_vhost.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  notifies :restart, resources(:service => "lighttpd"), :delayed
+end
+
+lighttpd_module "mysql-vhost"
