@@ -60,14 +60,14 @@ directory "/etc/lighttpd/sites-enabled" do
 end
 
 template "/etc/lighttpd/lighttpd.conf" do
-        source "lighttpd.conf.erb"
-        owner "root"
-        group "root"
-        mode "0644"
-        variables(
-		:extforward_headers => node[:lighttpd][:extforward_headers],
-		:extforward_forwarders => node[:lighttpd][:extforward_forwarders]
-		)
-        notifies :restart, resources(:service => "lighttpd"), :delayed
+  source "lighttpd.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(
+    :extforward_headers => node[:lighttpd][:extforward_headers],
+    :extforward_forwarders => node[:lighttpd][:extforward_forwarders]
+  )
+  notifies :restart, resources(:service => "lighttpd"), :delayed
 end
 
