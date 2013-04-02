@@ -98,7 +98,9 @@ server.max-connections = <%= node[:lighttpd][:max_connections] %>
 
 server.use-ipv6 = "<%= node[:lighttpd][:use_ipv6] %>"
 
+# NOTE: if you use this, you must include recipe[chef-lighttpd::mod_
 <% if node[:lighttpd][:extforward_headers] -%>
+server.modules += ( "mod_extforward" )
 extforward.headers = (
 	<%= node[:lighttpd][:extforward_headers].map { |h| "\"#{h}\"" }.join ', ' %>
 	)

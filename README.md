@@ -18,6 +18,37 @@ Include `recipe[chef-lighttpd]` in your runlist to install lighttpd. To configur
 
 Usually, you will not need to call `lighttpd_site` directly - just pass in `enable` as a param when you call `lighttpd_vhost`, and that will call lighttpd_site for you. However, it's available if you need to call it directly.
 
+There are also recipes for installing different modules you might want. Just include the appropriate recipe in your run list to install them. Currently mod_access, mod_alias, mod_accesslog, mod_rewrite, mod_redirect, mod_status, mod_compress, and mod_expire are included by default.
+
+Available modules to install separately are:
+
+* mod_auth
+* mod_cgi
+* mod_cml
+* mod_evasive
+* mod_evhost
+* mod_expire
+* mod_fastcgi
+* mod_flv_streaming
+* mod_magnet
+* mod_mysql_vhost
+* mod_no_www
+* mod_proxy
+* mod_rddtool
+* mod_simple_vhost
+* mod_ssi
+* mod_ssl
+* mod_status
+* mod_trigger_b4_dl
+* mod_userdir
+* mod_usertrack
+* mod_webdav
+
+TODO
+====
+* Add RHEL/CentOS support
+* Add test-kitchen
+
 LICENSE
 =======
 
