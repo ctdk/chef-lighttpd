@@ -42,3 +42,5 @@ default[:lighttpd][:debug][:log_condition_handling] = "disable"
 default[:lighttpd][:debug][:log_response_header] = "disable"
 default[:lighttpd][:debug][:proxy] = "disable"
 default[:lighttpd][:debug][:dump_unknown_headers] = "disable"
+default[:lighttpd][:url_rewrites] = { }
+default[:lighttpd][:url_redirects] = { }

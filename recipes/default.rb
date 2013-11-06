@@ -66,7 +66,9 @@ template "/etc/lighttpd/lighttpd.conf" do
   mode "0644"
   variables(
     :extforward_headers => node[:lighttpd][:extforward_headers],
-    :extforward_forwarders => node[:lighttpd][:extforward_forwarders]
+    :extforward_forwarders => node[:lighttpd][:extforward_forwarders],
+    :url_rewrites => node[:lighttpd][:url_rewrites],
+    :url_redirects => node[:lighttpd][:url_redirects]
   )
   notifies :restart, resources(:service => "lighttpd"), :delayed
 end

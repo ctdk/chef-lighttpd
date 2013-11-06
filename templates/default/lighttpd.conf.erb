@@ -129,6 +129,17 @@ status.status-url = "/server-status"
 #### url handling modules (rewrite, redirect, access)
 # url.rewrite                 = ( "^/$"             => "/server-status" )
 # url.redirect                = ( "^/wishlist/(.+)" => "http://www.123.org/$1" )
+url.rewrite = (
+<% @url_rewrites.each_pair do |old, new| %>
+  <%= "  \"^#{old}\" => \"#{new}\"," %>
+<% end %>
+)
+
+url.redirect = (
+<% @url_redirects.each_pair do |old, new| %>
+  <%= "  \"#{old}\" => \"#{new}\"," %>
+<% end %>
+)
 
 #
 # define a pattern for the host url finding
