@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: chef-lighttpd
+# Cookbook Name:: lighttpd
 # Recipe:: default
 #
 # Copyright 2011-2013, Kos Media, LLC
@@ -27,7 +27,7 @@ case node[:platform]
   when "debian","ubuntu"
     service_name "lighttpd"
     restart_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
-    reload_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1" 
+    reload_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
   end
   supports value_for_platform(
     "debian" => { "4.0" => [ :restart, :reload ], "default" => [ :restart, :reload, :status ] },

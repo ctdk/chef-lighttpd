@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: chef-lighttpd
+# Cookbook Name:: lighttpd
 # Recipe:: mod_fastcgi
 #
 # Copyright 2011-2013, Kos Media, LLC

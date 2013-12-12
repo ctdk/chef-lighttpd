@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: chef-lighttpd
+# Cookbook Name:: lighttpd
 # Definition:: lighttpd_site
 #
 # Copyright 2011-2013, Kos Media LLC
@@ -19,7 +19,7 @@
 # Adapted from apache2's apache_site
 
 define :lighttpd_site, :enable => true do
-	include_recipe "chef-lighttpd"
+	include_recipe "lighttpd"
 
 	if params[:enable]
 		link "#{node[:lighttpd][:dir]}/sites-enabled/#{params[:server_name]}.conf" do
