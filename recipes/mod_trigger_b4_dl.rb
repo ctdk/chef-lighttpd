@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: chef-lighttpd
+# Cookbook Name:: lighttpd
 # Recipe:: mod_trigger_b4_dl
 #
 # Copyright 2011-2013, Kos Media, LLC

@@ -1,5 +1,5 @@
 # Debian lighttpd configuration file
-# 
+#
 
 ############ Options you really have to take care of ####################
 
@@ -9,18 +9,18 @@
 # - saves some time
 # - saves memory
 
-server.modules		   = ( 
+server.modules		   = (
 			      "mod_access",
 			      "mod_alias",
 			      "mod_accesslog",
-			      "mod_rewrite", 
-			      "mod_redirect", 
-			      "mod_status", 
+			      "mod_rewrite",
+			      "mod_redirect",
+			      "mod_status",
 			      "mod_compress",
 			      "mod_expire"
 			      )
 
-## a static document-root, for virtual-hosting take look at the 
+## a static document-root, for virtual-hosting take look at the
 ## server.virtual-* options
 server.document-root       = "<%= node[:lighttpd][:doc_root] %>"
 
@@ -30,12 +30,12 @@ server.core-files = "<%= node[:lighttpd][:debug][:core_files] %>"
 server.max-worker = <%= node[:lighttpd][:max_worker] %>
 debug.log-request-handling = "<%= node[:lighttpd][:debug][:log_request_handling] %>"
 debug.log-state-handling = "<%= node[:lighttpd][:debug][:log_state_handling] %>"
-debug.log-condition-handling = "<%= node[:lighttpd][:debug][:log_condition_handling] %>" 
+debug.log-condition-handling = "<%= node[:lighttpd][:debug][:log_condition_handling] %>"
 debug.log-response-header = "<%= node[:lighttpd][:debug][:log_response_header] %>"
 proxy-core.debug = "<%= node[:lighttpd][:debug][:proxy] %>"
 
 ## files to check for if .../ is requested
-index-file.names           = ( "index.php", "index.html", 
+index-file.names           = ( "index.php", "index.html",
                                "index.htm", "default.htm" )
 
 
@@ -71,7 +71,7 @@ server.port               = <%= node[:lighttpd][:port] %>
 ## to help the rc.scripts
 server.pid-file            = "<%= node[:lighttpd][:pid_file] %>"
 
-## 
+##
 ## Format: <errorfile-prefix><status>.html
 ## -> ..../status-404.html for 'File not found'
 #server.errorfile-prefix    = "/var/www"
@@ -98,7 +98,7 @@ server.max-connections = <%= node[:lighttpd][:max_connections] %>
 
 server.use-ipv6 = "<%= node[:lighttpd][:use_ipv6] %>"
 
-# NOTE: if you use this, you must include recipe[chef-lighttpd::mod_
+# NOTE: if you use this, you must include recipe[lighttpd::mod_
 <% if node[:lighttpd][:extforward_headers] -%>
 server.modules += ( "mod_extforward" )
 extforward.headers = (
@@ -164,7 +164,7 @@ url.redirect = (
 #### and by default allow them only from localhost
 
 $HTTP["remoteip"] =~ "127.0.0.1" {
-	alias.url += ( 
+	alias.url += (
 		"/doc/" => "/usr/share/doc/",
 		"/images/" => "/usr/share/images/"
 	)
@@ -190,7 +190,7 @@ $HTTP["remoteip"] =~ "127.0.0.1" {
 ## mimetype mapping
 include_shell "/usr/share/lighttpd/create-mime.assign.pl"
 
-## load enabled configuration files, 
+## load enabled configuration files,
 ## read /etc/lighttpd/conf-available/README first
 include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
 # Now we can use include-sites-enabled

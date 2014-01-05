@@ -1,5 +1,5 @@
-# 
-# Cookbook Name: chef-lighttpd
+#
+# Cookbook Name: lighttpd
 # Definition: lighttpd_module
 # Copyright 2011-2013, Kos Media LLC
 #
@@ -19,7 +19,7 @@
 
 define :lighttpd_module, :enable => true do
   module_command = (params[:enable]) ? "lighttpd-enable-mod" : "lighttpd-disable-mod"
-  include_recipe "chef-lighttpd"
+  include_recipe "lighttpd"
   bash "run_lighty_mod" do
     user "root"
     code <<-EOH

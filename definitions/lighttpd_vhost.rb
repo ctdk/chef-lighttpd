@@ -1,5 +1,5 @@
-# 
-# Cookbook Name: chef-lighttpd
+#
+# Cookbook Name: lighttpd
 # Definition: lighttpd_vhost
 # Copyright 2011-2013, Kos Media LLC
 #
@@ -20,7 +20,7 @@
 define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 	vhost_name = params[:server_name]
 	enabled = params[:enable]
-	include_recipe "chef-lighttpd"
+	include_recipe "lighttpd"
 
 	template "#{node[:lighttpd][:dir]}/sites-available/#{vhost_name}.conf" do
 		source params[:template]
