@@ -67,7 +67,7 @@ attribute "lighttpd/max_worker",
 attribute "lighttpd/pid_file",
   :display_name => "Pid file",
   :description => "Pid file",
-  :default => "/var/run/lighttpd"
+  :default => "/var/run/lighttpd.pid"
 
 attribute "lighttpd/encoding",
   :display_name => "character encoding",
