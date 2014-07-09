@@ -49,6 +49,14 @@ TODO
 * Add RHEL/CentOS support
 * Add test-kitchen
 
+CONTRIBUTING
+============
+
+Want to make a contribution to chef-lighttpd? Great. Issues can be submitted on 
+the chef-lighttpd github issue tracker. If you have code to submit, fork the
+repo, make your change, and submit a pull request. Contributions are welcome and
+very appreciated.
+
 LICENSE
 =======
 
