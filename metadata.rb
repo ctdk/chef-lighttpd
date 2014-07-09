@@ -6,6 +6,29 @@ description      "Installs/Configures Lighttpd"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.3.0"
 
+recipe "lighttpd::default", "default recipe"
+recipe "lighttpd::mod_auth", "mod_auth recipe"
+recipe "lighttpd::mod_cgi", "mod_cgi recipe"
+recipe "lighttpd::mod_cml", "mod_cml recipe"
+recipe "lighttpd::mod_evasive", "mod_evasive recipe"
+recipe "lighttpd::mod_evhost", "mod_evhost recipe"
+recipe "lighttpd::mod_expire", "mod_expire recipe"
+recipe "lighttpd::mod_fastcgi", "mod_fastcgi recipe"
+recipe "lighttpd::mod_flv_streaming", "mod_flv_streaming recipe"
+recipe "lighttpd::mod_magnet", "mod_magnet recipe"
+recipe "lighttpd::mod_mysql_vhost", "mod_mysql_vhost recipe"
+recipe "lighttpd::mod_no_www", "mod_no_www recipe"
+recipe "lighttpd::mod_proxy", "mod_proxy recipe"
+recipe "lighttpd::mod_rddtool", "mod_rddtool recipe"
+recipe "lighttpd::mod_simple_vhost", "mod_simple_vhost recipe"
+recipe "lighttpd::mod_ssi", "mod_ssi recipe"
+recipe "lighttpd::mod_ssl", "mod_ssl recipe"
+recipe "lighttpd::mod_status", "mod_status recipe"
+recipe "lighttpd::mod_trigger_b4_dl", "mod_trigger_b4_dl recipe"
+recipe "lighttpd::mod_userdir", "mod_userdir recipe"
+recipe "lighttpd::mod_usertrack", "mod_usertrack recipe"
+recipe "lighttpd::mod_webdav", "mod_webdav recipe"
+
 attribute "lighttpd",
   :display_name => "Lighttpd perl Hash",
   :description => "Hash of lighttpd attributes",
